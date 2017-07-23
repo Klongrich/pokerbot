@@ -1,28 +1,26 @@
-from cardgen import deal
-
 class player:
 
-    def __init__(self, chips):
-        self.__chips = chips
-        self.__hand = []
+    def __init__(self):
+        self.myChips = 100
+        self.myHand = []
 
     def getChips(self):
-        return self.__chips
+        return self.myChips
 
     def setChips(self, chips):
-        self.__chips = chips
+        self.myChips = chips
 
     def addChips(self, chips):
-        self.__chips += chips
+        self.myChips += chips
 
     def bet(self, chips):
-        self.__chips -= chips
+        self.myChips -= chips
 
-    def newHand(self, dealtCards):
-        deal(self.__hand, 2, dealtCards)
+    def addCard(self, card):
+        self.myHand.append(card)
 
     def getHand(self):
-        return self.__hand
+        return self.myHand
 
     def delHand(self):
-        del self.__hand[:]
+        del self.myHand[:]

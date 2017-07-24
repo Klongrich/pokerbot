@@ -19,6 +19,12 @@ class current_hand:
         self.cards_on_table = [23, 24, 17, 29, 11];
         self.card_suites = [1, 0, 2, 3, 3, 2, 0];
 
+    def isTwopair(self):
+        return (1)
+
+    def same_suit(self):
+        return (1)
+
     def get_myhand(self):
         return (self.myhand);
 

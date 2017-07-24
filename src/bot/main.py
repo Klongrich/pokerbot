@@ -8,6 +8,7 @@ Bot.solve() key;
 3 = check;
 
 
+
 '''
 
 

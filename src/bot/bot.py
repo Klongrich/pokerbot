@@ -19,6 +19,20 @@ Bot.solve() key;
 
 > 0 = amount betting
 
+As far as the algorithm is concered this i what I am thinking. We'll just take into account the probabailty
+that other people have a better hand as well as the probabilty of having our hand.
+
+Something like
+(BP - Q) / B
+
+B = the Decimal odds (2) - How much you can return from bet
+P = probability of success (0.12)
+Q = probability of failure (0.78)
+
+((1)(0.12) - (0.78) / 1) = -0.66% (bot would fold)
+((2)(0.40) - (0.54) / 2) = 13% (bot would bet 13 percent of it's chips)
+....
+
 
 '''
 
@@ -29,6 +43,7 @@ class bot:
         self.chips = 714
         self.players = 5;
 
+    #This needs to be accurate
     def get_probabilty(self):
         return (1 / 10);
 

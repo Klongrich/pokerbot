@@ -44,17 +44,18 @@ class bot:
         self.chips = 714
         self.players = 5
         self.chips_in_pot = 100
+        self.chips_being_bet = 23;
 
-    #Need amount of players, cards on table, and cards in my hand.
+    #Needs amount of players, cards on table, and cards in my hand.
     def get_success_probabilty(self):
         return (0.714)
 
     def get_failure_probabilty(self):
         return (self.get_success_probabilty() - 1)
 
-    #This needs to be accurate
+    #Needs amount of chips in pot, amount of chips being bet, and the number of chips it has.
     def get_probabilty(self):
-        b = self.chips_in_pot / self.chips
+        b = (self.chips_in_pot + self.chips_being_bet) / self.chips
         p = self.get_success_probabilty();
         q = self.get_failure_probabilty()
         return (((b * p) - q) / b)
@@ -62,7 +63,7 @@ class bot:
     def bet_amount(self):
         return (self.chips * self.get_probabilty());
 
-    #Need to now if I'm big blind, little blind, or neither;
+    #Needs to now if I'm big blind, little blind, or neither;
     def solve_start(self):
         if self.current_hand.isTwopair() == 1:
             return (self.bet_amount())

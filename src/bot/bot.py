@@ -20,7 +20,8 @@ Bot.solve() key;
 > 0 = amount betting
 
 As far as the algorithm is concered this i what I am thinking. We'll just take into account the probabailty
-that other people have a better hand as well as the probabilty of having our hand.
+that other people have a better hand as well as the probabilty of having our hand. Basically how much are we risking vs what
+is the expected result over thousands of games played.
 
 Something like
 (BP - Q) / B

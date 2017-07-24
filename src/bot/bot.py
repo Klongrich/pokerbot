@@ -63,17 +63,9 @@ class bot:
     def solve(self):
         if len(self.cards_on_table) == 0:
             return (self.solve_start())
+        
+    def update_current_hand(self, updated_hand):
+        self.current_hand = updated_hand
 
-    def set_number_of_player(self, players):
-        self.number_of_players = players;
-
-    def set_current_hand(self, hand):
-        self.current_hand = hand;
-
-    def set_cards_on_table(self, cards):
-        self.cards_on_table = cards
-
-    def set_suites(self, suites):
-        self.suites = suites
 
 

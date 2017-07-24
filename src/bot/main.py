@@ -2,12 +2,11 @@
 
 Bot.solve() key;
 
-0 = fold;
-1 = call;
-2 = bet;
-3 = check;
+-2 = fold;
+-1 = call;
+0 = check;
 
-
+> 0 = amount betting
 
 '''
 

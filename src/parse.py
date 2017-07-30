@@ -1,5 +1,6 @@
 #function takes in any number of cards and compares them to all 10 possible outcomes
 #starting with the lowerst probability (royal flush) to the highest probability (high card)
+# i will change this so you can pass in two hand objects. One for community cards and one for a players hand
 
 def parse_hands(*args):
     usable_cards = args

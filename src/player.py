@@ -1,26 +1,34 @@
+# decisions and hand
+from src.hand import *
+import sys
+
 class player:
+    def __init__(self, name):
+        self.myName = name.rstrip()
+        self.myHand = current_hand()
 
-    def __init__(self):
-        self.myChips = 100
-        self.myHand = []
+# so the players and the bot should be able to take in a new hand
+    def update_current_hand(self, hand):
+        self.myHand = hand
 
-    def getChips(self):
-        return self.myChips
+    def get_my_hand(self):
+        return self.myHand.get_cards()
 
-    def setChips(self, chips):
-        self.myChips = chips
+    def get_my_hand_names(self):
+        return self.myHand.get_names()
 
-    def addChips(self, chips):
-        self.myChips += chips
+    def get_my_name(self):
+        return self.myName
 
-    def bet(self, chips):
-        self.myChips -= chips
-
-    def addCard(self, card):
-        self.myHand.append(card)
-
-    def getHand(self):
-        return self.myHand
-
-    def delHand(self):
-        del self.myHand[:]
+#  return -2 - x
+    def mk_bet(self, myChips, comCards):
+        print("---{0}'s Turn---".format(self.myName))
+        print("Chips: {0}".format(myChips))
+        print("Community cards:", comCards.getCardNames())
+        # print("hand: {0}".format(self.myHand.getCardNames()))
+        print("hand: {0}".format(self.get_my_hand()))
+        print("Place your bet:")
+        myBet = sys.stdin.readline()
+        # add processing for actual words
+        myBet = int(myBet)
+        return myBet

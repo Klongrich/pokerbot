@@ -1,10 +1,9 @@
 import sys
-from player import *
-from table import *
-from deckOfCards import *
+from src.player import *
+from src.bot.bot import *
+from src.table import *
 
 '''
-the cards work like this right now
 spades  clubs   hearts  diamonds
 0       13      26      39          two
 1       14      27      40          three
@@ -19,93 +18,63 @@ spades  clubs   hearts  diamonds
 10      23      36      49          queen
 11      24      37      50          king
 12      25      38      51          ace
-
-it made sense when doing the parsing to make it this way
-so i can change it to a list of the actual strings if that makes it easier for you
-ex ['two of spades', 'three of spades', ....]
-or i could just have a function for it that would return the string value of
-the corresponding number
-ex. getValue(0) = 'two of spades'
-
-
-also now a deck of cards is a class that contains both a list of used cards
-and unused cards. 
-
-so now parse_hand would take in the players cards + the community cards
 '''
 
-
-
 # ---main---
-
 players = []
-deck = deckOfCards()
 
+print("How many human Players?")
+# plus one for the bot once its added
+myTable = table(int(sys.stdin.readline()))
 
-print("How many Players?")
-numOfPlayers = int(sys.stdin.readline())
+for i in range(0, myTable.numPlayers):
+    print("Enter Players Name:")
+    name = sys.stdin.readline()
+    players.append(player(name))
 
-for i in range(0, numOfPlayers):
-    players.append(player())
+# terminator = bot(hand())
+# players.append(terminator)
+
 
 # game loop
-
-while True:
-    # "dealer" is player0 then player1... then back to player0 shifts one to the left everytime
-    # little blind is to the left of the dealer, big blind is to the left of little blind
-    for dealer in range(0, numOfPlayers):
-        # deal of cards one by one starting with the dealer
-        curPlayer = dealer
-        for i in range(0, 2):
-            for j in range(0, numOfPlayers):
-                drawnCard = deck.drawCard()
-                players[curPlayer].addCard(drawnCard)
-                if curPlayer < (numOfPlayers - 1):
-                    curPlayer += 1
-                else:
-                    curPlayer = 0
-
-        # show current hands
-        print("current player hands")
-        for i in range(0, len(players)):
-            print(players[i].getHand())
-
-        myTable = table()
-
-        myTable.dealCards('flop', deck)
-        print("current community cards")
-        print(myTable.getCards())
-
-        myTable.dealCards('turn', deck)
-        print("current community cards")
-        print(myTable.getCards())
-
-        myTable.dealCards('river', deck)
-        print("current community cards")
-        print(myTable.getCards())
+while len(players) != 1:
+    numPlayers = myTable.get_num_players()
+    print("Current Deck:\n", myTable.get_deck())
 
 
-        # delete players hands, community cards, and shuffle the deck
-        for i in range(0, len(players)):
-            players[i].delHand()
+    # deal out hands to players starting with the little blind then to the left around the table
+    # players and bots need to have a method .update_current_hand(current_hand()) that accepts a new hand object
+    for j in range(0, numPlayers):
+        curPlayer = myTable.get_cur_player()
+        players[curPlayer].update_current_hand(myTable.get_next_hand())
 
-        myTable.resetTable()
-        deck.shuffle()
+        print("\n", players[curPlayer].get_my_name(), "'s hand:")
+        print("Raw Card Values:", players[curPlayer].get_my_hand())
+        print("Card Suites:", players[curPlayer].myHand.get_suites())
+        print("Card Values:", players[curPlayer].myHand.get_values())
+        print("Actual Card Names:", players[curPlayer].get_my_hand_names())
 
-        # allow for bets starting with little blind
+        myTable.set_cur_player(myTable.get_next_player(curPlayer))
 
-        # for testing
-        print("Do you want to play again?")
-        play_again = sys.stdin.readline()
-        play_again.lower()
-        if play_again[0] == 'n':
-            break
+    myTable.deal_com_cards('flop')
+    print("Current Deck:\n", myTable.get_deck())
+    print("Community Cards:\n", myTable.get_com_cards().get_cards())
 
-    # for testing
-    print("Do you want to play again?")
-    play_again = sys.stdin.readline()
-    play_again.lower()
-    if play_again[0] == 'n':
-        break
+    myTable.deal_com_cards('turn')
+    print("Current Deck:\n", myTable.get_deck())
+    print("Community Cards:\n", myTable.get_com_cards().get_cards())
 
-    # add handling for when players out of chips
+    myTable.deal_com_cards('river')
+    print("Current Deck:\n", myTable.get_deck())
+    print("Community Cards:\n", myTable.get_com_cards().get_cards())
+
+    sys.stdin.readline()
+
+
+
+# reset table first to change the chips, then if pChips = 0, remove them from the game
+    myTable.reset_table(0)
+    for j in range(0, numPlayers):
+        if myTable.get_player_chips(j) == 0:
+            print(players[j].getName(), "is out of the game!")
+            players.pop(j)

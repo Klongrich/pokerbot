@@ -3,7 +3,7 @@ from tkinter import *
 class Table:
 
     def __init__(self, master):
-        frame = Frame(master)
+        frame = Frame(master, background="dark green", highlightbackground="black", highlightcolor="black", highlightthickness=2, bd=0)
         frame.pack()
 
         ''' Here is where the table cards should be shown'''
@@ -42,11 +42,13 @@ class Table:
 
         ''' Where your cards are shown '''
 
+        self.chipsLabel = Label(frame, text="Chips: 714,000")
         self.player_cardone = Label(frame, image=player_CardOne)
         self.player_cardtwo = Label(frame, image=player_CardTwo)
 
         self.player_cardone.grid(row=4, column=0)
         self.player_cardtwo.grid(row=4, column=1)
+        self.chipsLabel.grid(row=5, column=4)
 
 
 
@@ -68,6 +70,7 @@ class Table:
 
 root = Tk()
 root.title("Poker")
+root.configure(background="brown")
 
 CardOne = PhotoImage(file="card_pics/aceofspades.png")
 CardTwo = PhotoImage(file="card_pics/2ofspades.png")

@@ -22,6 +22,7 @@ class player:
     def get_my_name(self):
         return self.myName
 
+    '''
 #  return -2 - x
     def mk_bet(self, myChips, comCards):
         print("---{0}'s Turn---".format(self.myName))
@@ -34,3 +35,4 @@ class player:
         # add processing for actual words
         myBet = int(myBet)
         return myBet
+    '''

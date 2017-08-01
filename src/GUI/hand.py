@@ -75,3 +75,6 @@ class current_hand:
 
     def same_suit(self):
         return (1)
+
+    def clear(self):
+       del self.myCards[:]

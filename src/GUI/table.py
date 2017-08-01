@@ -1,5 +1,7 @@
 import random
-from src.hand import *
+
+from src.GUI.hand import *
+
 
 class table:
 

@@ -1,7 +1,5 @@
-import sys
-from src.player import *
-from src.bot.bot import *
-from src.table import *
+from src.GUI.player import *
+from src.GUI.table import *
 
 '''
 spades  clubs   hearts  diamonds

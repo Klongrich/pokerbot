@@ -1,6 +1,8 @@
 # decisions and hand
-from src.hand import *
 import sys
+
+from src.GUI.hand import *
+
 
 class player:
     def __init__(self, name):

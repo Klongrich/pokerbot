@@ -1,5 +1,5 @@
-from src.GUI.player import *
 from src.GUI.table import *
+from src.player import *
 
 '''
 spades  clubs   hearts  diamonds

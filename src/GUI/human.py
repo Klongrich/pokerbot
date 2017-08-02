@@ -1,25 +1,33 @@
+'''
+This class is a copy from hand.py I just combined it with player.py and added a few things in to make life
+eaiser. Also you don't need to comment every function. add_card is 2 lines. I can see what it's doing. lol.
 
-class current_hand:
 
-    def __init__(self):
+'''
+class player:
+
+    chip_amount = 714
+
+    def __init__(self, name):
         self.myCards = []
+        self.name = name
 
-# adds card to the hand (so you can deal one card at a time like real texas holdem)
+    # adds card to the hand (so you can deal one card at a time like real texas holdem) - (Ohh shit i thought it this was hacking China. More comments) -KL
     def add_card(self, card):
         self.myCards.append(card)
 
-# returns list 0 - 51
+    # returns list 0 - 51 - (No way! wait I get it like 52 cards in a deck? Please add more comments. I'm lost) - KL
     def get_cards(self):
         return self.myCards
 
-# returns a list 0 - 3 (spade, club, heart, diamond)
+    # returns a list 0 - 3 (spade, club, heart, diamond) - (Dude there's 4 suites and you only goes up to 3? Confused. HELP!) - KL
     def get_suites(self):
         suites = []
         for i in range(0, len(self.myCards)):
             suites.append(self.myCards[i] // 13)
         return suites
 
-# returns a list 0 - 12 (two - ace)
+    # returns a list 0 - 12 (two - ace) - (why are you starting at 2 and ending at ace? ace isn't a number?! MORE COMMENTS!!!) - KL
     def get_values(self):
         values = []
         for i in range(0, len(self.myCards)):
@@ -27,7 +35,10 @@ class current_hand:
             values.append(self.myCards[i] - suite * 13)
         return values
 
-# returns a list of strings like [Two of hearts, Three of Hearts]
+    def get_chips(self):
+        return self.chip_amount
+
+    # returns a list of strings like [Two of hearts, Three of Hearts] - (The most useful function in this class.) - KL
     def get_names(self):
         values = self.get_values()
         suites = self.get_suites()
@@ -69,12 +80,6 @@ class current_hand:
             elif suites[i] == 3:
                 name[i] += "Diamonds"
         return name
-
-    def isTwopair(self):
-        return (1)
-
-    def same_suit(self):
-        return (1)
 
     def clear(self):
        del self.myCards[:]

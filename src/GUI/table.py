@@ -1,9 +1,18 @@
+'''
+This class scares me. Lot's of variables in __init__ which sometimes can make it harder for other people to read. The rest looks good.
+I added in how much was in the pot and was being bet. Also you can use global varibels. You dont' have to do it in the __init__
+
+'''
+
 import random
 
-from src.GUI.hand import *
+from src.GUI.human import *
 
 
 class table:
+
+    bet_amount = 0
+    pot = 15000
 
     def __init__(self, number_of_players):
         self.numPlayers = number_of_players
@@ -14,22 +23,24 @@ class table:
         # dealing out cards for players and community cards
         self.deck = []
         self.playersHands = []
-        self.comCards = current_hand()
+        self.comCards = player("foo")
         self.curPlayer = self.get_lit_blind()
         self.shuffle_deck()
         print("Current Deck:\n", self.get_deck())
         self.deal_player_hands()
 
 
-        # keeping track of bets on the table as well as players chips
+        # keeping track of bets on the table as well as players chips (no clue where you are going with this) - KL
         # curBets hold the current bet so..
         # -2 = folded this round
         # -1 = called this round
         # 0 = checked this round
         # >0 = the amound bet (maybe make >= bigblind value
+
+
         self.bigBlindVal = 20
         self.litBlindVal = self.bigBlindVal / 2
-        self.pot = 0            # change to accomodate side pots
+        # change to accomodate side pots
         self.curBets = []
         self.playersChips = []
         for i in range(0, self.numPlayers):
@@ -46,7 +57,7 @@ class table:
         self.curPlayer = next_player
 
     def get_pot(self):
-        return self.pot
+        return 1000
 
     def get_com_cards(self):
         return self.comCards
@@ -89,7 +100,7 @@ class table:
 
     def deal_player_hands(self):
         for i in range(0, self.numPlayers):
-            self.playersHands.append(current_hand())
+            self.playersHands.append(player("foo"))
         for i in range(0, 2):
             for j in range(0, self.numPlayers):
                 self.playersHands[j].add_card(self.draw_card())

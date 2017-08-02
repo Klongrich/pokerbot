@@ -1,8 +1,23 @@
-from tkinter import *
-from src.GUI.hand import current_hand
-from src.GUI.table import table
-from src.GUI.player import player
+'''
+Documenation ohh boy....
+
+Turn Variable Key:
+0 = no cards delt
+1 = 2 cards delt
+2 = flop
+3 = turn
+4 = river
+
+
+I want to add in some fancy stuff latter possible with graphics and anamation. Stuff like chips sliding around the table and what not.
+But for now I think just a functional game would be good. Mainly because I need one in order to debug / play the Bot I am trying to create
+
+
+'''
+
 from src.GUI.bet_window import *
+from src.GUI.human import player
+from src.GUI.table import table
 
 class GUI:
 
@@ -10,8 +25,10 @@ class GUI:
         self.frame = Frame(master, background="dark green", highlightbackground="black", highlightcolor="black", highlightthickness=2, bd=0)
         self.frame.pack()
 
-        ''' Here is where the table cards should be shown'''
+        self.bet_amount = 0
+        self.turn = 0
 
+        ''' Here is where the table cards are shown'''
         self.cardOne = Label(self.frame, image=ace_of_spades)
         self.cardTwo = Label(self.frame, image=two_of_spades)
         self.cardThree = Label(self.frame, image=three_of_spades)
@@ -24,9 +41,7 @@ class GUI:
         self.cardFour.grid(row=1, column=3)
         self.cardFive.grid(row=1, column=4)
 
-
         ''' All the buttons for doing stuff'''
-
         self.betButton = Button(self.frame, text="Bet", width=10, command=self.bet)
         self.betButton.grid(row=3, column=0, pady=80)
 
@@ -42,28 +57,43 @@ class GUI:
         self.raiseButton = Button(self.frame, text="Raise", width=10, command=self.Raise)
         self.raiseButton.grid(row=3, column=4)
 
+        self.dealButton = Button(self.frame, text="Deal", width=10, command=self.deal)
+        self.dealButton.grid(row=4, column=4)
+
         ''' Where your cards are shown '''
-
-        self.chipsLabel = Label(self.frame, text="Chips: 714,000", borderwidth=2, relief="groove")
-        self.potLabel = Label(self.frame, text="Pot: 417", borderwidth=2, relief="groove")
-        self.betLabel = Label(self.frame, text="Bet: 0.00", borderwidth=2, relief="groove")
-
         self.player_cardone = Label(self.frame, image=player_CardOne)
         self.player_cardtwo = Label(self.frame, image=player_CardTwo)
-        self.dealButton = Button(self.frame, text="Deal", width=10, command=self.deal)
 
 
         self.player_cardone.grid(row=4, column=0)
         self.player_cardtwo.grid(row=4, column=1)
-        self.dealButton.grid(row=4, column=4)
+
+        self.set_labels()
+
+
+    def set_labels(self):
+        chips = "Chips: " + str(Player.get_chips())
+        bet = "Bet: " + str(self.bet_amount)
+        pot = "Pot: " + str(Table.get_pot())
+
+        self.chipsLabel = Label(self.frame, text=chips, borderwidth=2, relief="groove")
+        self.potLabel = Label(self.frame, text=pot, borderwidth=2, relief="groove")
+        self.betLabel = Label(self.frame, text=bet, borderwidth=2, relief="groove")
+
         self.betLabel.grid(row=5, column=2);
         self.chipsLabel.grid(row=5, column=4)
-        self.potLabel.grid(row = 5, column=3)
+        self.potLabel.grid(row=5, column=3)
+
+    def reset_hand(self):
+        self.turn = 0
 
     ''' Feel like this will be pretty simple '''
     def bet(self):
         bet = bet_window()
-        bet.printstuff()
+        print(bet.get_bet_amount())
+        if (int(bet.get_bet_amount()) <= Player.get_chips()):
+            self.bet_amount = bet.get_bet_amount()
+        self.set_labels()
 
     def fold(self):
         print("hello")
@@ -78,8 +108,8 @@ class GUI:
         print("hello")
 
     def deal(self):
-        players_hand.add_card(Table.draw_card())
-        players_hand.add_card(Table.draw_card())
+        Player.add_card(Table.draw_card())
+        Player.add_card(Table.draw_card())
 
         self.player_cardone = Label(self.frame, image=ace_of_spades)
         self.player_cardtwo = Label(self.frame, image=player_CardTwo)
@@ -87,17 +117,16 @@ class GUI:
         self.player_cardone.grid(row=4, column=0)
         self.player_cardtwo.grid(row=4, column=1)
 
-        print(players_hand.get_names())
+        print(Player.get_names())
         self.dealButton.config(state="disabled")
-        players_hand.clear()
+        Player.clear()
 
 root = Tk()
 root.title("Poker")
 root.configure(background="brown")
 
-human = player("Kyle")
+Player = player("Kyle")
 Table = table(2)
-players_hand = current_hand()
 
 ace_of_spades = PhotoImage(file="card_pics/aceofspades.png")
 two_of_spades = PhotoImage(file="card_pics/2ofspades.png")

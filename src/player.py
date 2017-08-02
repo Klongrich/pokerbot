@@ -1,13 +1,13 @@
 # decisions and hand
 import sys
 
-from src.GUI.hand import *
+from src.GUI.human import *
 
 
 class player:
     def __init__(self, name):
         self.myName = name.rstrip()
-        self.myHand = current_hand()
+        #self.myHand = current_hand()
 
 # so the players and the bot should be able to take in a new hand
     def update_current_hand(self, hand):

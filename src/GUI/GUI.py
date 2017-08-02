@@ -2,6 +2,7 @@ from tkinter import *
 from src.GUI.hand import current_hand
 from src.GUI.table import table
 from src.GUI.player import player
+from src.GUT.bet_winodw import *
 
 class GUI:
 
@@ -26,33 +27,38 @@ class GUI:
 
         ''' All the buttons for doing stuff'''
 
-        self.addButton = Button(self.frame, text="Bet", width=10, command=self.bet)
-        self.addButton.grid(row=3, column=0, pady=80)
+        self.betButton = Button(self.frame, text="Bet", width=10, command=self.bet)
+        self.betButton.grid(row=3, column=0, pady=80)
 
-        self.addButton = Button(self.frame, text="check", width=10, command=self.check)
-        self.addButton.grid(row=3, column=1)
+        self.checkButton = Button(self.frame, text="check", width=10, command=self.check)
+        self.checkButton.grid(row=3, column=1)
 
-        self.addButton = Button(self.frame, text="Fold", width=10, command=self.fold)
-        self.addButton.grid(row=3, column=2)
+        self.foldButton = Button(self.frame, text="Fold", width=10, command=self.fold)
+        self.foldButton.grid(row=3, column=2)
 
-        self.addButton = Button(self.frame, text="Call", width=10, command=self.call)
-        self.addButton.grid(row=3, column=3)
+        self.callButton = Button(self.frame, text="Call", width=10, command=self.call)
+        self.callButton.grid(row=3, column=3)
 
-        self.addButton = Button(self.frame, text="Raise", width=10, command=self.Raise)
-        self.addButton.grid(row=3, column=4)
+        self.raiseButton = Button(self.frame, text="Raise", width=10, command=self.Raise)
+        self.raiseButton.grid(row=3, column=4)
 
         ''' Where your cards are shown '''
 
-        self.chipsLabel = Label(self.frame, text="Chips: 714,000")
+        self.chipsLabel = Label(self.frame, text="Chips: 714,000", borderwidth=2, relief="groove")
+        self.potLabel = Label(self.frame, text="Pot: 417", borderwidth=2, relief="groove")
+        self.betLabel = Label(self.frame, text="Bet: 0.00", borderwidth=2, relief="groove")
+
         self.player_cardone = Label(self.frame, image=player_CardOne)
         self.player_cardtwo = Label(self.frame, image=player_CardTwo)
-        self.addButton = Button(self.frame, text="Deal", width=10, command=self.deal)
+        self.dealButton = Button(self.frame, text="Deal", width=10, command=self.deal)
 
 
         self.player_cardone.grid(row=4, column=0)
         self.player_cardtwo.grid(row=4, column=1)
-        self.addButton.grid(row=4, column=4)
+        self.dealButton.grid(row=4, column=4)
+        self.betLabel.grid(row=5, column=2);
         self.chipsLabel.grid(row=5, column=4)
+        self.potLabel.grid(row = 5, column=3)
 
     ''' Feel like this will be pretty simple '''
     def bet(self):
@@ -81,6 +87,7 @@ class GUI:
         self.player_cardtwo.grid(row=4, column=1)
 
         print(players_hand.get_names())
+        self.dealButton.config(state="disabled")
         players_hand.clear()
 
 root = Tk()

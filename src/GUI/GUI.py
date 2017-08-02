@@ -2,7 +2,7 @@ from tkinter import *
 from src.GUI.hand import current_hand
 from src.GUI.table import table
 from src.GUI.player import player
-from src.GUT.bet_winodw import *
+from src.GUI.bet_window import *
 
 class GUI:
 
@@ -62,7 +62,8 @@ class GUI:
 
     ''' Feel like this will be pretty simple '''
     def bet(self):
-        print("hello")
+        bet = bet_window()
+        bet.printstuff()
 
     def fold(self):
         print("hello")

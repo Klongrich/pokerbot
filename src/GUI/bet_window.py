@@ -1,13 +1,25 @@
 from tkinter import *
 
-def get_bet_amount():
-    print(e1.get())
+class bet_window:
 
-master = Tk()
-Label(master, text="Enter Amount").grid(row=0)
-Button(master, text="Enter", command=get_bet_amount).grid(row=1, column=0)
-Button(master, text="Cancle", command=quit).grid(row=1, column=1)
-e1 = Entry(master)
-e1.grid(row=0, column=1)
+    bet = 0
 
-mainloop()
+    def __init__(self):
+        master = Tk()
+        master.title("Bet")
+        Label(master, text="Enter Amount").grid(row=0)
+        Button(master, text="Enter", command=self.set_bet_amount).grid(row=1, column=0)
+        Button(master, text="Cancle", command=quit).grid(row=1, column=1)
+        self.e1 = Entry(master)
+        self.e1.grid(row=0, column=1)
+        mainloop()
+
+    def set_bet_amount(self):
+        self.bet = self.e1.get()
+
+    def get_bet_amount(self):
+        return self.bet
+
+    def printstuff(self):
+        print("he")
+

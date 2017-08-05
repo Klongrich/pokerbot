@@ -90,6 +90,7 @@ class GUI:
     ''' Feel like this will be pretty simple '''
     def bet(self):
         bet = bet_window()
+
         print(bet.get_bet_amount())
         if (int(bet.get_bet_amount()) <= Player.get_chips()):
             self.bet_amount = bet.get_bet_amount()

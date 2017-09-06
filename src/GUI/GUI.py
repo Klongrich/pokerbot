@@ -8,10 +8,8 @@ Turn Variable Key:
 3 = turn
 4 = river
 
-
 I want to add in some fancy stuff latter possible with graphics and anamation. Stuff like chips sliding around the table and what not.
 But for now I think just a functional game would be good. Mainly because I need one in order to debug / play the Bot I am trying to create
-
 
 '''
 
@@ -63,7 +61,6 @@ class GUI:
         ''' Where your cards are shown '''
         self.player_cardone = Label(self.frame, image=player_CardOne)
         self.player_cardtwo = Label(self.frame, image=player_CardTwo)
-
 
         self.player_cardone.grid(row=4, column=0)
         self.player_cardtwo.grid(row=4, column=1)
